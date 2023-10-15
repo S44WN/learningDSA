@@ -3,7 +3,7 @@ using namespace std;
 
 struct Array
 {
-    int A[20];
+    int A[10];
     int size;
     int length;
 };
@@ -40,9 +40,24 @@ void Display(struct Array arr)
 //     return 0;
 // }
 
+int Append(struct Array *arr, int x)
+{
+
+    if (arr->length < arr->size)
+    {
+        arr->A[arr->length++] = x; // explanation: arr->length++ is post increment, so first the value of arr->length is used and then incremented
+    }
+    return 0;
+};
+
+// int Insert()
+// {
+// }
+
 int main()
 {
     struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
+    Append(&arr, 10);
     Display(arr);
     return 0;
 }

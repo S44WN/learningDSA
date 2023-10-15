@@ -50,14 +50,37 @@ int Append(struct Array *arr, int x)
     return 0;
 };
 
-// int Insert()
-// {
-// }
+int Insert(struct Array *arr, int index, int item)
+{
+    if (index <= 0 || index > arr->length)
+    {
+        return -1;
+    }
+    else if (arr->length == arr->size)
+    {
+        return -1;
+    }
+    else
+    {
+        // shift items to the right
+        for (int i = arr->length; i > index; i--)
+        {
+            arr->A[i] = arr->A[i - 1];
+        }
+        // insert item at index
+        arr->A[index] = item;
+        // increment length
+        arr->length++;
+    }
+
+    return 0;
+}
 
 int main()
 {
     struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
-    Append(&arr, 10);
+    Insert(&arr, 0, 1);
+    // Append(&arr, 10);
     Display(arr);
     return 0;
 }

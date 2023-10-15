@@ -76,11 +76,106 @@ int Insert(struct Array *arr, int index, int item)
     return 0;
 }
 
+int Delete(struct Array *arr, int index)
+{
+    int x;
+
+    if (index >= 0 && index < arr->length)
+    {
+        // item to be deleted
+        x = arr->A[index];
+
+        // shift items to the left
+        for (int i = index; i < arr->length; i++)
+        {
+            arr->A[i] = arr->A[i + 1];
+        }
+        // decrement length
+        arr->length--;
+
+        return x;
+    }
+    return 0;
+}
+
+void swap(int *a, int *b)
+{
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int LinearSearch(struct Array *arr, int key)
+{
+    for (int i = 0; i <= arr->length; i++)
+    {
+        if (key == arr->A[i])
+        {
+            // swap(&arr->A[i], &arr->A[i - 1]); // tranposition to improve linear search
+            swap(&arr->A[i], &arr->A[0]); // moving to front/head
+            return i;                     // returns index at which item is found
+        }
+    }
+    return -1;
+}
+
+int BinarySearch(struct Array *arr, int key)
+{
+    // define low = 0 and high = length -1
+    int low = 0;
+    int high = arr->length - 1;
+
+    while (low <= high) // low has to be less or eqaul to high
+    {
+        int mid = (low + high) / 2; // getting mid
+
+        if (key == arr->A[mid])
+        {
+            return mid;
+        }
+        else if (key > arr->A[mid])
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    return -1; // not found
+}
+
+int RecursiveBS(int a[], int low, int high, int key)
+{
+    int mid;
+    if (low <= high)
+    {
+        mid = (low + high) / 2;
+        if (key == a[mid])
+        {
+            return mid;
+        }
+        else if (key > a[mid])
+        {
+            return RecursiveBS(a, mid + 1, high, key);
+        }
+        else
+        {
+            return RecursiveBS(a, low, mid - 1, key);
+        }
+    }
+}
+
 int main()
 {
     struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
-    Insert(&arr, 0, 1);
+    // Insert(&arr, 0, 1);
     // Append(&arr, 10);
+    // Delete(&arr, 2);
+    // LinearSearch(&arr, 6);
+    // BinarySearch(&arr, 6);
     Display(arr);
     return 0;
 }

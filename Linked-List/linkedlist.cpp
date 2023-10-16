@@ -164,6 +164,43 @@ int RMax(struct Node *n)
     return (x > n->data) ? x : n->data;
 }
 
+Node *Search(struct Node *n, int key)
+{
+    while (n != 0)
+    {
+        if (key == n->data)
+            return n;
+        n = n->next;
+    }
+    return 0;
+}
+
+Node *RSearch(struct Node *n, int key)
+{
+    if (n == 0)
+        return 0;
+    if (key == n->data)
+        return n;
+    return RSearch(n->next, key);
+}
+
+Node *ImprSearch(struct Node *n, int key)
+{
+    Node *m = NULL;
+    while (n != NULL)
+    {
+        if (key == n->data)
+        {
+            m->next = n->next; // node before "key containg node" points to the next node to key node;
+            n->next = first;   // key node's next node is first node. so key node becomes first node.
+            first = n;         // first has to point to first.. right?
+            return n;
+        }
+        m = n;
+        n = n->next;
+    }
+}
+
 int main()
 {
     /*

@@ -126,6 +126,44 @@ int RSum(struct Node *p)
         return RSum(p->next) + p->data;
 }
 
+int Max(struct Node *n)
+{
+    int max = INT32_MIN; // base don 2 byte int;  MIN_INT;
+
+    while (n != 0)
+    {
+        if (n->data > max)
+            max = n->data;
+        else
+            return 0;
+    }
+
+    return max;
+}
+
+int RMax(struct Node *n)
+{
+    int x = 0;
+    /*
+    if (n == 0)
+    {
+        return INT32_MIN;
+    }
+    else
+    {
+        x = RMax(n->next);
+        if (x > n->data)
+            return x;
+        else
+            return n->data;
+    }
+    */
+    if (n == 0)
+        return INT32_MIN;
+    x = RMax(n->next);
+    return (x > n->data) ? x : n->data;
+}
+
 int main()
 {
     /*

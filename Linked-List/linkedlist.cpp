@@ -72,6 +72,60 @@ void RDisplay(struct Node *n)
     }
 }
 
+// counting nodes
+int Count(struct Node *p)
+{
+    int l = 0;
+    while (p)
+    {
+        l++;
+        p = p->next;
+    }
+    return l;
+}
+
+int RCount(struct Node *p)
+{
+    if (p != NULL)
+        return RCount(p->next) + 1;
+    else
+        return 0;
+
+    /*
+
+    //recursively but with variable
+    int x = 0;
+        if(p){
+        x = RCount(p->next);
+        return x+1;
+    }
+    else{
+        return 0;
+    }
+    */
+}
+
+// adding nodes
+int Sum(struct Node *p)
+{
+    int s = 0;
+
+    while (p != NULL)
+    {
+        s += p->data;
+        p = p->next;
+    }
+    return s;
+}
+
+int RSum(struct Node *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+        return RSum(p->next) + p->data;
+}
+
 int main()
 {
     /*

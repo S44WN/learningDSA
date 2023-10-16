@@ -1,20 +1,20 @@
 #include <iostream>
 using namespace std;
 
-/*
 struct Node
 {
     int data;
     struct Node *next; // pointer to next node
-};                     //*first = NULL  // global pointer to first node of linked list. why? because we need to access the first node from anywhere in the program
-*/
+} *first = NULL;       //*first = NULL  // global pointer to first node of linked list. why? because we need to access the first node from anywhere in the program
 
+/*
 class Node
 {
 public: // access specifier
     int data;
     Node *next;
 } *first = NULL;
+*/
 
 void Create(int A[], int n)
 {
@@ -55,6 +55,20 @@ void Display(struct Node *n)
     {
         cout << n->data << " ";
         n = n->next;
+    }
+}
+
+void RDisplay(struct Node *n)
+{
+    if (n != NULL)
+    {
+        cout << n->data << " ";
+        RDisplay(n->next);
+        /*
+        //prints llist in reverse
+        RDisplay(n->next)
+        cout << n->data << " ";
+        */
     }
 }
 

@@ -4,8 +4,8 @@ using namespace std;
 struct Node
 {
     int data;
-    struct Node *next; // pointer to next node
-} *first = NULL;       //*first = NULL  // global pointer to first node of linked list. why? because we need to access the first node from anywhere in the program
+    struct Node *next;                          // pointer to next node
+} *first = NULL, *second = NULL, *third = NULL; //*first = NULL  // global pointer to first node of linked list. why? because we need to access the first node from anywhere in the program
 
 /*
 class Node
@@ -37,6 +37,28 @@ void Create(int A[], int n)
     the last node in the linked list. Initially, the first node
     is the only node in the linked list, so it is also the last node.
     */
+
+    // rest of the nodes
+    for (i = 1; i < n; i++)
+    {
+        temp = new Node;      // create a temproary node
+        temp->data = A[i];    // poulate the temporary node with data
+        temp->next = nullptr; // set the next field of the temporary node to nullptr
+        last->next = temp;    // set the next field of the last node to the address of the temporary node
+        last = temp;          // set the last pointer to the temporary node
+    }
+}
+
+void CreateSecond(int A[], int n)
+{
+    int i;
+    Node *temp, *last;
+
+    // first node
+    second = new Node;
+    second->data = A[0];
+    second->next = nullptr; // last node
+    last = second;          // why? 👇
 
     // rest of the nodes
     for (i = 1; i < n; i++)
@@ -354,6 +376,115 @@ void RemoveDuplicates(struct Node *n)
     }
 }
 
+void ReverseWithArray(Node *n)
+{
+    Node *m = n;
+    int *A = new int[Count(n)];
+    int i;
+
+    while (m != NULL)
+    {
+        A[i] = m->data;
+        m = m->next;
+        i++;
+    }
+
+    // i is outside now and m is also null
+    m = n; // m is at first again
+    i--;   // now i is at last element of array
+
+    while (m != NULL)
+    {
+        m->data = A[i];
+        m = m->next;
+        i--;
+    }
+}
+
+void ReverseWithLink(Node *p)
+{
+    Node *q = NULL, *r = NULL;
+
+    while (p != NULL)
+    {
+        // sliding pointer
+        r = q;
+        q = p;
+        p = p->next;
+
+        // reverses link
+        q->next = r;
+    }
+    first = q;
+}
+
+void RecursiveReverse(Node *p, Node *q)
+{
+    if (p)
+    {
+        RecursiveReverse(p, p->next);
+        p->next = q;
+    }
+    else
+    {
+        first = q;
+    }
+}
+
+void Concat(Node *p, Node *q)
+{
+    third = p;
+
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    p->next = q;
+}
+
+void Merge(Node *p, Node *q)
+{
+    Node *last;
+
+    if (p->data < q->data)
+    {
+        third = last = p;
+        p = p->next;
+        last->next = NULL;
+    }
+    else
+    {
+        third = last = q;
+        q = q->next;
+        last->next = NULL;
+    }
+
+    while (p != NULL && q != NULL)
+    {
+        if (p->data < q->data)
+        {
+            last->next = p;
+            last = p;
+            p = p->next;
+            last->next = NULL;
+        }
+        else
+        {
+            last->next = q;
+            last = q;
+            q = q->next;
+            last->next = NULL;
+        }
+    }
+    if (p != NULL)
+    {
+        last->next = first;
+    }
+    else
+    {
+        last->next = second;
+    }
+}
 int main()
 {
     /*
@@ -380,7 +511,11 @@ int main()
     */
 
     int A[] = {3, 5, 7, 10, 15};
+    int B[] = {2, 8, 6, 23, 25};
+
     Create(A, 5);
+    CreateSecond(B, 5);
+
     Display(first);
 
     return 0;

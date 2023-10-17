@@ -311,7 +311,7 @@ int Delete(struct Node *p, int index)
         q = first;
         x = first->data;
         first = first->next;
-        free(q);
+        free(q); // delete q; is also fine
         return x;
     }
     else
@@ -325,6 +325,32 @@ int Delete(struct Node *p, int index)
         x = p->data;
         free(p);
         return x;
+    }
+}
+
+void RemoveDuplicates(struct Node *n)
+{
+    n = first;
+    Node *q = first->next;
+
+    if (n == NULL)
+        return;
+    else
+    {
+        while (q != NULL)
+        {
+            if (n->data != q->data)
+            {
+                n = q;
+                q = q->next;
+            }
+            else
+            {
+                n->next = q->next;
+                delete q;
+                q = n->next;
+            }
+        }
     }
 }
 

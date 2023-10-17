@@ -201,6 +201,133 @@ Node *ImprSearch(struct Node *n, int key)
     }
 }
 
+void Insert(struct Node *n, int pos, int insrtData)
+{
+    // inserting at first
+    if (pos < 0 || pos > Count(n))
+        return;
+
+    // new node adding data
+    struct Node *t;
+    t = new Node;
+    t->data = insrtData;
+
+    if (pos == 0)
+    {
+        t->next = first;
+        first = t;
+    }
+    else
+    {
+        for (int i = 0; i < pos - 1; i++)
+        {
+            n = n->next;
+        }
+        t->next = n->next;
+        n->next = t;
+    }
+}
+
+void InsertLast(struct Node *n, int insrtData)
+{
+    Node *t = new Node, *last;
+    t->data = insrtData;
+    t->next = NULL;
+
+    if (first == NULL)
+    {
+        first = last;
+        last = t;
+    }
+    else
+    {
+        while (n->next != NULL)
+        {
+            last = n->next;
+        }
+        last->next = t;
+        last = t;
+    }
+}
+
+void InsertInSorted(struct Node *n, int insertData)
+{
+    struct Node *temp, *trailingP = NULL;
+    temp = new Node;
+    temp->data = insertData;
+    temp->next = NULL;
+
+    while (n && n->data < insertData)
+    {
+        trailingP = n;
+        n = n->next;
+    }
+    if (n == first)
+    {
+        temp->next = first;
+        first = temp;
+    }
+    else
+    {
+        temp->next = trailingP->next;
+        trailingP->next = temp;
+    }
+}
+
+// void Delete(struct Node *n, int pos)
+// {
+//     Node *tailP = NULL, *leadp;
+
+//     if (pos == 1)
+//     {
+//         leadp = first;
+//         first = first->next;
+//         delete leadp;
+//     }
+//     else
+//     {
+//         leadp = first;
+
+//         for (int i = 0; i < pos - 1; i++)
+//         {
+//             tailP = leadp;
+//             leadp = n->next;
+//         }
+//         tailP->next = leadp->next;
+//         // int x = leadp->data; //store deleted data in a variable if needed
+//         delete leadp;
+//     }
+// }
+
+int Delete(struct Node *p, int index)
+{
+    struct Node *q = NULL;
+    int x = -1, i;
+
+    if (index < 1 || index > Count(p))
+        return -1;
+    if (index == 1)
+    {
+        q = first;
+        x = first->data;
+        first = first->next;
+        free(q);
+        return x;
+    }
+    else
+    {
+        for (i = 0; i < index - 1; i++)
+        {
+            q = p;
+            p = p->next;
+        }
+        q->next = p->next;
+        x = p->data;
+        free(p);
+        return x;
+    }
+}
+
 int main()
 {
     /*

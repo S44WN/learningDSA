@@ -485,6 +485,26 @@ void Merge(Node *p, Node *q)
         last->next = second;
     }
 }
+
+int isLoop(Node *n)
+{
+    Node *p, *q;
+
+    p = q = n;
+
+    do
+    {
+        p = p->next;
+        q = q->next;
+        q = q ? q->next : q;
+    } while (p && q && p != q);
+
+    if (p == q)
+        return 1;
+    else
+        return 0;
+}
+
 int main()
 {
     /*

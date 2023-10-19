@@ -67,11 +67,12 @@ void Insert(Node *p, int index, int val)
     }
     else
     {
-        for (int i = 1; i < index - 1; i++)
+        for (int i = 0; i < index - 1; i++)
         {
             p = p->next;
         }
         temp = new Node;
+        temp->data = val;
         temp->prev = p;
         temp->next = p->next; // is set to NULL even if doesnt exist
         if (p->next)
@@ -115,7 +116,7 @@ int main()
     int A[] = {11, 32, 43, 54, 75, 76, 78, 89};
     Create(A, 8);
 
-    // Insert(first, 3, 47);
+    Insert(first, 3, 47);
 
     Display(first);
 }

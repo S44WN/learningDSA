@@ -9,7 +9,7 @@ struct Node
 
 } *first = NULL;
 
-void Creat(int A[], int n)
+void Create(int A[], int n)
 {
     Node *temp, *last;
 
@@ -18,7 +18,7 @@ void Creat(int A[], int n)
     first->next = first->prev = NULL;
     last = first;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
         temp = new Node;
         temp->data = A[i];
@@ -112,4 +112,10 @@ int Delete(Node *p, int pos)
 }
 int main()
 {
+    int A[] = {11, 32, 43, 54, 75, 76, 78, 89};
+    Create(A, 8);
+
+    // Insert(first, 3, 47);
+
+    Display(first);
 }

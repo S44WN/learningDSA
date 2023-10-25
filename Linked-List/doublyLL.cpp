@@ -98,7 +98,7 @@ int Delete(Node *p, int pos)
     }
     else
     {
-        for (int i = 0; i < pos - 1; i++)
+        for (int i = 0; i < pos; i++)
         {
             p = p->next;
         }
@@ -111,12 +111,30 @@ int Delete(Node *p, int pos)
         delete p;
     }
 }
+
+void Reverse(Node *p)
+{
+    Node *temp;
+
+    while (p != NULL)
+    {
+        temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+        p = p->prev;
+        if (p != NULL && p->prev == NULL)
+            first = p;
+    }
+}
 int main()
 {
     int A[] = {11, 32, 43, 54, 75, 76, 78, 89};
     Create(A, 8);
 
     Insert(first, 3, 47);
+    Insert(first, 0, 7);
+    Delete(first, 0);
+    Delete(first, 3);
 
     Display(first);
 }

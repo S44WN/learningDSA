@@ -18,6 +18,7 @@ public:
     BST() { root = nullptr; }
     Node *getroot() { return root; }
     void Insert(int key);
+    void RInsert(int key);
     void Preorder(Node *p);
     void Inorder(Node *p);
     void Postorder(Node *p);
